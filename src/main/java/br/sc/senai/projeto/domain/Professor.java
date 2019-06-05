@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -44,6 +45,10 @@ public class Professor {
 	@NotBlank(message="A flag de conta ativa deve ser inserida.")
 	@Size(max=1, message="A flag de conta ativa deve conter apenas um número (0 ou 1).")
 	private byte contaAtiva;
+	
+	@ManyToMany
+	@Column(name = "id_materias")
+	private Materias materias;
 	
 	public long getId() {
 		return id;
@@ -92,5 +97,15 @@ public class Professor {
 	public void setContaAtiva(byte contaAtiva) {
 		this.contaAtiva = contaAtiva;
 	}
+
+	public Materias getMaterias() {
+		return materias;
+	}
+
+	public void setMaterias(Materias materias) {
+		this.materias = materias;
+	}
+	
+	
 	
 }
