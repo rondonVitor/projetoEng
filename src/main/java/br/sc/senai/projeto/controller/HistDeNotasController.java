@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.sc.senai.projeto.domain.HistDeNotas;
 import br.sc.senai.projeto.service.HistDeNotasService;
+import br.sc.senai.projeto.ws.HistDeNotasWs;
 import br.sc.senai.projetoEng.components.MapValidationComponent;
 
 @RestController
@@ -28,14 +29,14 @@ public class HistDeNotasController {
 	private MapValidationComponent mapValidationComponent;
 	
 	@PostMapping("/salvar")
-	public ResponseEntity<?> salvar(@RequestBody @Valid HistDeNotas histDeNotas, BindingResult result) {
+	public ResponseEntity<?> salvar(@RequestBody @Valid HistDeNotasWs histDeNotasWs, BindingResult result) {
 		
 		ResponseEntity<?> errors = this.mapValidationComponent.mapValidationError(result);
 		if (errors != null) {
 			return errors;
 		}
 		
-		HistDeNotas histDeNotasSalvas = this.histDeNotasService.salvar(histDeNotas);
+		HistDeNotas histDeNotasSalvas = this.histDeNotasService.salvar(histDeNotasWs);
 		
 		return new ResponseEntity<HistDeNotas>(histDeNotasSalvas, HttpStatus.OK);
 	}
